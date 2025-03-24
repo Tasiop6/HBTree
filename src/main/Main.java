@@ -15,6 +15,15 @@ public class Main {
             String command = sc.next();
 
             switch (command) {
+                case "-f":
+                    if (!sc.hasNextInt()) {
+                        System.out.println("Invalid Command!");
+                        break;
+                    }
+                    int findKey = sc.nextInt();
+                    System.out.println(findKey + (tree.find(findKey) ? " F" : " NF"));
+                    break;
+
                 case "-i":
                     if (!sc.hasNextInt()) {
                         System.out.println("Invalid Command!");
@@ -31,15 +40,6 @@ public class Main {
                     }
                     int deleteKey = sc.nextInt();
                     System.out.println(deleteKey + (tree.delete(deleteKey) ? " D" : " ND"));
-                    break;
-
-                case "-f":
-                    if (!sc.hasNextInt()) {
-                        System.out.println("Invalid Command!");
-                        break;
-                    }
-                    int findKey = sc.nextInt();
-                    System.out.println(findKey + (tree.find(findKey) ? " F" : " NF"));
                     break;
 
                 case "-q":
