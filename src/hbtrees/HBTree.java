@@ -1,7 +1,7 @@
 package hbtrees;
 
 public class HBTree {
-    private HBTreeNode root;
+    HBTreeNode root;
 
     public HBTree() {
         this.root = null;
