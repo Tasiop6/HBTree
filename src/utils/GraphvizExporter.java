@@ -1,0 +1,37 @@
+package utils;
+
+import hbtrees.HBTree;
+import hbtrees.HBTreeNode;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+
+public class GraphvizExporter {
+
+    public static void exportTree(HBTree tree, String filename) {
+        try (PrintWriter writer = new PrintWriter(new File(filename))) {
+            writer.println("graph HBTreeGraph {");
+            exportNode(writer, tree.getRoot()); // Recursively write nodes
+            writer.println("}");
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write file '" + filename + "'");
+        }
+    }
+
+    private static void exportNode(PrintWriter writer, HBTreeNode node) {
+        if (node == null) return;
+
+        writer.printf("%d [label=\"%d (%d)\"];\n", node.getKey(), node.getKey(), node.getWeight());
+
+        if (node.getLeft() != null) {
+            writer.printf("%d -- %d;\n", node.getKey(), node.getLeft().getKey());
+            exportNode(writer, node.getLeft());
+        }
+
+        if (node.getRight() != null) {
+            writer.printf("%d -- %d;\n", node.getKey(), node.getRight().getKey());
+            exportNode(writer, node.getRight());
+        }
+    }
+}
