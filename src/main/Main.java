@@ -1,6 +1,8 @@
 package main;
 
 import hbtrees.HBTree;
+import utils.GraphvizExporter;
+import utils.ImageRenderer;
 
 import java.util.Scanner;
 
@@ -39,12 +41,28 @@ public class Main {
                         break;
                     }
                     int deleteKey = sc.nextInt();
-                    System.out.println(deleteKey + (tree.delete(deleteKey) ? " D" : " ND"));
+                    //System.out.println(deleteKey + (tree.delete(deleteKey) ? " D" : " ND"));
+                    break;
+
+                case "-p":
+                    System.out.printf("size: %d, max_height: %d, min_height: %d\n",
+                            tree.getSize(), tree.getMaxHeight(), tree.getMinHeight());
+                    tree.printPreOrder();
                     break;
 
                 case "-q":
                     System.out.println("Bye bye!");
                     return;
+
+                case "-g":
+                    String dotFile = "tree.dot";
+                    String imageFile = "images/tree.png";
+
+                    GraphvizExporter.exportTree(tree, dotFile);
+                    ImageRenderer.generateImage(dotFile, imageFile);
+
+                    System.out.println("Tree exported to " + imageFile);
+                    break;
 
                 default:
                     System.out.println("Invalid Command!");
