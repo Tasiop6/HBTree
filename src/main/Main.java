@@ -41,7 +41,7 @@ public class Main {
                         break;
                     }
                     int deleteKey = sc.nextInt();
-                    //System.out.println(deleteKey + (tree.delete(deleteKey) ? " D" : " ND"));
+                    System.out.println(deleteKey + (tree.delete(deleteKey) ? " D" : " ND"));
                     break;
 
                 case "-p":
@@ -50,12 +50,8 @@ public class Main {
                     tree.printPreOrder();
                     break;
 
-                case "-q":
-                    System.out.println("Bye bye!");
-                    return;
-
                 case "-g":
-                    String dotFile = "tree.dot";
+                    String dotFile = "images/tree.dot";
                     String imageFile = "images/tree.png";
 
                     GraphvizExporter.exportTree(tree, dotFile);
@@ -63,6 +59,10 @@ public class Main {
 
                     System.out.println("Tree exported to " + imageFile);
                     break;
+
+                case "-q":
+                    System.out.println("Bye bye!");
+                    return;
 
                 default:
                     System.out.println("Invalid Command!");

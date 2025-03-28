@@ -81,13 +81,65 @@ public class HBTree {
         }
 
         if (key < node.getKey()) {
-            node.left = insert(node.getLeft(), key);
+            node.left = insert(node.getLeft(), key);    // Go left
         } else {
-            node.right = insert(node.getRight(), key);
+            node.right = insert(node.getRight(), key);  //Go right
         }
 
         updateHeightAndWeight(node);  // Updating height and weight after insertion
         return balance(node);         // Balancing node if needed
+    }
+
+    public boolean delete(int key) {
+        if (!find(key)) {
+            return false;   // If key doesn't exist, can't delete
+        }
+        root = delete(root, key);
+        return true;
+    }
+
+    private HBTreeNode delete(HBTreeNode node, int key) {
+        if (node == null) {
+            return null;
+        }
+
+        if (key < node.getKey()) {
+            node.left = delete(node.getLeft(), key);    // Go left
+        } else if (key > node.getKey()) {
+            node.right = delete(node.getRight(), key);  // Go right
+        } else {
+            // Node to be deleted found
+
+            // Case 1: No children
+            if (node.getLeft() == null && node.getRight() == null) {
+                return null;
+            }
+
+            // Case 2: One child
+            if (node.getLeft() == null) return node.getRight();
+            if (node.getRight() == null) return node.getLeft();
+
+            // Case 3: Two children
+            // Find the in-order successor (smallest in right subtree)
+            HBTreeNode successor = findMin(node.getRight());
+
+            // Replace current node's key with successor's key
+            node.key = successor.getKey();
+
+            // Delete the successor node from right subtree
+            node.right = delete(node.getRight(), successor.getKey()); // Here method separation of delete allows me to
+        }                                                             // use delete and start form nested node and not root.
+
+        // Update height and weight, then balance
+        updateHeightAndWeight(node);
+        return balance(node);
+    }
+
+    private HBTreeNode findMin(HBTreeNode node) {
+        while (node.getLeft() != null) {
+            node = node.getLeft();
+        }
+        return node;
     }
 
     private void updateHeightAndWeight(HBTreeNode node) {
