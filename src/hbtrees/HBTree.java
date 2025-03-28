@@ -11,10 +11,6 @@ public class HBTree {
         return root;
     }
 
-    public void setRoot(HBTreeNode root) {
-        this.root = root;
-    }
-
     public int getSize() {
         return (root != null) ? root.getWeight() : 0;
     }

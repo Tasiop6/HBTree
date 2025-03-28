@@ -12,7 +12,6 @@ public class Main {
         HBTree tree = new HBTree();
         Scanner sc = new Scanner(System.in);
 
-//        System.out.print("?: ");
         while (sc.hasNext()) {
             String command = sc.next();
 
@@ -67,8 +66,6 @@ public class Main {
                 default:
                     System.out.println("Invalid Command!");
             }
-
-//            System.out.print("?: ");
         }
 
         sc.close();
